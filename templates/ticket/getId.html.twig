@@ -24,6 +24,6 @@
 
     {% endfor %}
 
-    <a class="btn btn-primary" href="{{ path('app_message_new') }}">Ajouter un message</a>
+    <a class="btn btn-primary" href="{{ path('app_message_new', {'idUser': app.user.id, 'idTicket': ticket.id}) }}">Ajouter un message</a>
     <a class="btn btn-danger" href="{{ path('app_ticket_closed', {'id': ticket.id}) }}">Cloturer</a>
 {% endblock %}

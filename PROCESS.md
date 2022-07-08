@@ -13,6 +13,6 @@
 * Création des pages pour modifier, voir, supprimer un ticket (Controller + template)
 * Création de la page pour arriver sur la liste des utilisateur (Controller + template)
 * Création des pages pour modifier, voir, supprimer un utilisateur (Controller + template)
-* Création de la page pour ajouter des messages dans un ticket (Controller + template)
+* Création de la page pour afficher et ajouter des messages dans un ticket (Controller + template)
 * Création de la fonctionnalité pour cloturer un ticket (Controller + template)
 * Création de la fonctionnalité pour supprimer un message en tant qu'ADMIN (Controller + template)

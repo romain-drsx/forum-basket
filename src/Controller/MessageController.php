@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
+use App\Repository\TicketRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,14 +23,16 @@ class MessageController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_message_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MessageRepository $messageRepository): Response
+    #[Route('/new/{idUser}/{idTicket}', name: 'app_message_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, MessageRepository $messageRepository, TicketRepository $ticketRepository, UserRepository $userRepository): Response
     {
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $message->setUser($userRepository->findOneBy(['idUser']));
+            $message->setTicket($ticketRepository->findOneBy(['idTicket']));
             $messageRepository->add($message, true);
 
             return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
