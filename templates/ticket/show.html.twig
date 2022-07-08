@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket{% endblock %}
+
+{% block body %}
+    <h1>Ticket</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ticket.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ ticket.title }}</td>
+            </tr>
+            <tr>
+                <th>Catégorie</th>
+                <td>{{ ticket.category.name }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ ticket.status ? 'Ouvert' : 'Fermé' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ticket_index') }}">Retour à la liste</a>
+
+    <a class="btn btn-primary" href="{{ path('app_ticket_edit', {'id': ticket.id}) }}">Modifier</a>
+
+    {{ include('ticket/_delete_form.html.twig') }}
+{% endblock %}

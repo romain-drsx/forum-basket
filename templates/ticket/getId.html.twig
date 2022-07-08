@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket{% endblock %}
+
+{% block body %}
+    <h1>{{ ticket.title }}</h1>
+
+    {% for message in ticket.messages %}
+
+    <div class="card" style="margin-bottom: 1rem;">
+        <div class="card-body">
+            <h6 class="card-title">{{ message.content }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted float-end">Délivré à 13:01 le 08/07/2022</h6>
+            <p class="card-text">{{ message.user.firstname }} {{ message.user.lastname }}</p>
+            {% if app.user %}
+            {% for role in app.user.roles %}
+            {% if role == 'ROLE_ADMIN' %}
+             {{ include('./message/_delete_form.html.twig') }}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    {% endfor %}
+
+    <a class="btn btn-primary" href="{{ path('app_message_new') }}">Ajouter un message</a>
+    <a class="btn btn-danger" href="{{ path('app_ticket_closed', {'id': ticket.id}) }}">Cloturer</a>
+{% endblock %}

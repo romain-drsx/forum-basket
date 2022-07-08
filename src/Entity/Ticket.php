@@ -18,14 +18,14 @@ class Ticket
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $slug;
-
     #[ORM\Column(type: 'boolean')]
     private $status;
 
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Message::class)]
     private $messages;
+
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tickets')]
+    private $category;
 
     public function __construct()
     {
@@ -45,18 +45,6 @@ class Ticket
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }
@@ -99,6 +87,18 @@ class Ticket
                 $message->setTicket(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
